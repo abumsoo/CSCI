@@ -1,0 +1,136 @@
+/*
+  Bum Soo Kim
+  TA: Ian Martiny
+  Assignment 7
+ */
+
+#include <iostream>
+#include <cmath>
+
+using namespace std;
+
+int main(){
+
+  //Problem 1: Football: Calculating the Passer Rating
+  int int_pass_completions;
+  int int_pass_attempts;
+  int int_total_yards;
+  int int_touchdowns;
+  int int_interceptions;
+
+  //Ask for all the statistics
+  cout << "Enter pass completions " << endl;
+  cin >> int_pass_completions;
+  cout << "Enter pass attempts " << endl;
+  cin >> int_pass_attempts;
+  cout << "Enter total yards " << endl;
+  cin >> int_total_yards;
+  cout << "Enter touchdowns " << endl;
+  cin >> int_touchdowns;
+  cout << "Enter interceptions " << endl;
+  cin >> int_interceptions;
+
+  //Make the calculations
+  float fltC = (int_pass_completions-0.30)*5;
+  float fltY = (int_total_yards-3)*0.25;
+  float fltT = int_touchdowns*20;
+  float fltI = 2.375-(int_interceptions*25);
+  //Creates an array for the statistics
+  float cityArray[4] = {fltC,fltY,fltT,fltI};
+
+  //Looks through statistics and replaces the ones that
+  //are less than 0 or greater than 2.375
+  for (int x=0;x<4;x++){
+    if (cityArray[x]<0)
+      cityArray[x] = 0;
+    else if (cityArray[x]>2.375)
+      cityArray[x] = 2.375;
+  }
+
+  //Calculates the Rating based on the statistics
+  int intRating = (cityArray[0]+cityArray[1]+cityArray[2]+cityArray[3])/6*100;
+  //Rates the rating as poor, mediocre, good, or great
+  if (intRating<=85)
+    cout << "Rating " << intRating << ", this is poor" << endl;
+  else if (intRating>85 && intRating <=90)
+    cout << "Rating " << intRating << ", this is mediocre" << endl;
+  else if (intRating>90 && intRating <=95)
+    cout << "Rating " << intRating << ", this is good" << endl;
+  else if (intRating>95)
+    cout << "Rating " << intRating << ", this is great" << endl;
+
+  //Problem 2: Cycling: Power and Energy
+  //declare variables for later
+  int intMassRider;
+  int intMassBike;
+  float fltVelocity;
+  float fltDrafting;
+  float fltPowerAir;
+  float fltPowerRolling;
+  int intPower;
+  //constants
+  float fltG = 9.8;
+  float fltK = 0.18;
+  float fltResistance = 0.001;
+
+  //Get user input for rider's mass, bike's mass, etc.
+  cout << "Mass of the rider: " << endl;
+  cin >> intMassRider;
+  cout << "Mass of the bike: " << endl;
+  cin >> intMassBike;
+  cout << "Velocity: " << endl;
+  cin >> fltVelocity;
+  cout << "Coefficient of drafting: " << endl;
+  cin >> fltDrafting;
+  //Calculate power from air resistance
+  fltPowerAir = fltK*fltDrafting*pow(fltVelocity,3);
+  //Calculate power from rolling resistance
+  fltPowerRolling = fltResistance*fltG*(intMassRider+intMassBike)*fltVelocity;
+  //Calculate total power
+  intPower = (fltPowerAir+fltPowerRolling)+0.5;
+  
+  cout << intPower << endl;
+
+  //Problem 3: Cycling: Power and Energy
+  float intDist;
+  float time;
+  int energyTotal;
+  //Get user input for distance in km
+  cout << "Distance in kilometers: " << endl;
+  cin >> intDist;
+  //Calculate the time it took to travel said distance
+  time = (intDist*1000)/fltVelocity;
+  //Calculate the total energy in that time interval
+  energyTotal = (intPower*time)+0.5;
+  cout << energyTotal << endl;
+
+  //Problem 4: Loops, loops, loops
+  int intFive[5];
+  //Create an array from user inputs
+  for (int x=0;x<5;x++){
+    cout << "Input a number: ";
+    cin >> intFive[x];
+  }
+  //Output the sum of pairs of numbers
+  for (int x=0;x<4;x++){
+    intFive[x]+=intFive[x+1];
+    cout << intFive[x] << endl;
+  }
+
+  //Problem 5: Loops, loops, loops
+  string not_increasing="True";
+  //Check each number in array to see if it's not increasing
+  for (int x=0;x<5;x++){
+    if (intFive[x]>=intFive[x+1])
+      not_increasing="True";
+    else{
+      not_increasing="False";
+      break;
+    }
+  }
+  //Print true or false depending on whether it's increasing or not
+  if (not_increasing=="True")
+    cout << "True" << endl;
+  else
+    cout << "False" << endl;
+}
